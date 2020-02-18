@@ -16,10 +16,23 @@ namespace Shared
             return separatorPosition;
         }
 
-        // Parsing with short array
+        // Parsing string with short array
         public static short[] ParseLineWithIntArray(string line)
         {
             var separatorPosition = new short[Configuration.NUMBER_OF_COLUMS];
+            var counter = 0;
+
+            for (short i = 0; i < line.Length; i++)
+                if (line[i] == Configuration.SEPARATOR)
+                    separatorPosition[counter++] = i;
+
+            return separatorPosition;
+        }
+
+        // Parsing string with short array
+        public static short[] ParseLineWithIntArray(char[] line)
+        {
+            var separatorPosition = new short[line.Length];
             var counter = 0;
 
             for (short i = 0; i < line.Length; i++)

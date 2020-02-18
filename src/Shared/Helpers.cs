@@ -18,7 +18,7 @@ namespace Shared
         }
     }
 
-    public struct GastoLinha
+    public class GastoLinha
     {
         public string TipoGasto { get; set; } // 3
         public long Processo { get; set; } // 8
@@ -41,6 +41,80 @@ namespace Shared
             Rubrica = rubrica;
             Funcao = funcao;
             Valor = valor;
+        }
+
+        public GastoLinha SetValues(string tipoGasto, long processo, string favorecido, string cnpj, string poder, string categoria, string rubrica, string funcao, double valor)
+        {
+            TipoGasto = tipoGasto;
+            Processo = processo;
+            Favorecido = favorecido;
+            CNPJ = cnpj;
+            Poder = poder;
+            Categoria = categoria;
+            Rubrica = rubrica;
+            Funcao = funcao;
+            Valor = valor;
+
+            return this;
+        }
+
+        public void Clear()
+        {
+            TipoGasto = default;
+            Processo = default;
+            Favorecido = default;
+            CNPJ = default;
+            Poder = default;
+            Categoria = default;
+            Rubrica = default;
+            Funcao = default;
+            Valor = default;
+        }
+
+        public GastoLinha()
+        {
+
+        }
+    }
+
+    public struct GastoLinhaStruct
+    {
+        public string TipoGasto { get; set; } // 3
+        public long Processo { get; set; } // 8
+        public string Favorecido { get; set; }  //10
+        public string CNPJ { get; set; }  //11
+        public string Poder { get; set; } // 12
+        public string Categoria { get; set; } // 20
+        public string Rubrica { get; set; } // 28
+        public string Funcao { get; set; } // 32
+        public double Valor { get; set; } // 44
+
+        public GastoLinhaStruct(string tipoGasto, long processo, string favorecido, string cnpj, string poder, string categoria, string rubrica, string funcao, double valor)
+        {
+            TipoGasto = tipoGasto;
+            Processo = processo;
+            Favorecido = favorecido;
+            CNPJ = cnpj;
+            Poder = poder;
+            Categoria = categoria;
+            Rubrica = rubrica;
+            Funcao = funcao;
+            Valor = valor;
+        }
+
+        public GastoLinhaStruct SetValues(string tipoGasto, long processo, string favorecido, string cnpj, string poder, string categoria, string rubrica, string funcao, double valor)
+        {
+            TipoGasto = tipoGasto;
+            Processo = processo;
+            Favorecido = favorecido;
+            CNPJ = cnpj;
+            Poder = poder;
+            Categoria = categoria;
+            Rubrica = rubrica;
+            Funcao = funcao;
+            Valor = valor;
+
+            return this;
         }
     }
 }

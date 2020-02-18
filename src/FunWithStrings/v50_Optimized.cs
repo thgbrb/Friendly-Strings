@@ -6,9 +6,10 @@ using static Shared.Parsers;
 
 namespace Playing
 {
-    public class Optimized
+    public class v50_Optimized
     {
         private readonly StringBuilder _stringBuilder = new StringBuilder();
+        private readonly GastoLinha _gastoLinha = new GastoLinha();
 
         public void Run()
         {
@@ -111,7 +112,7 @@ namespace Playing
             var valorMonetario = double.Parse(_stringBuilder.ToString());
             _stringBuilder.Clear();
 
-            return new GastoLinha(
+            return _gastoLinha.SetValues(
                 tipoGasto: tipoGasto,
                 processo: processo,
                 favorecido: favorecido,

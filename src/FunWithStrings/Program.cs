@@ -6,8 +6,9 @@ namespace Playing
     {
         static void Main(string[] args)
         {
-            new Stackoverflow().Run();
-            //new Optimized().Run();
+            new v01_Stackoverflow().Run();
+            //new v50_Optimized().Run();
+            //new v90_Optimized().Run();
 
             SharedHelpers.Summary();
         }
