@@ -8,26 +8,23 @@
 using Shared;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Playing
 {
-    class Program
+    public class Stackoverflow
     {
-        private const string SOURCE_FILE = "D:\\repos\\FriendlyStrings\\dados\\gastos121950.csv";
-        private const string DATABASE_FILE = "D:\\repos\\FriendlyStrings\\dados\\database.csv";
-
-        static void Main(string[] args)
+        public void Run()
         {
-            var despesas = new List<GastoLinha>();
-            using (var reader = new StreamReader(SOURCE_FILE))
+            var gastoLinhas = new List<GastoLinha>();
+
+            using (var reader = new StreamReader(Configuration.SOURCE_FILE))
             {
                 while (!reader.EndOfStream)
                 {
                     var linha = reader.ReadLine();
                     var valor = linha.Split(';');
 
-                    var veiculo = new GastoLinha(
+                    var gastoLinha = new GastoLinha(
                         tipoGasto: valor[3],
                         processo: long.Parse(valor[8]),
                         favorecido: valor[10],
@@ -41,28 +38,24 @@ namespace Playing
                         funcao: valor[32],
                         valor: double.Parse(valor[44]));
 
-                    despesas.Add(item: veiculo);
+                    gastoLinhas.Add(item: gastoLinha);
                 }
             }
 
-            using (TextWriter tw = new StreamWriter(path: DATABASE_FILE, append: true))
+            using (TextWriter tw = new StreamWriter(path: Configuration.DATABASE_FILE, append: true))
             {
-                foreach (var despesa in despesas)
+                foreach (var gastoLinha in gastoLinhas)
                 {
-                    tw.Write(despesa.TipoGasto + ";");
-                    tw.Write(despesa.Processo + ";");
-                    tw.Write(despesa.Favorecido + ";");
-                    tw.Write(despesa.CNPJ + ";");
-                    tw.Write(despesa.Poder + ";");
-                    tw.Write(despesa.Categoria + ";");
-                    tw.Write(despesa.Rubrica + ";");
-                    tw.Write(despesa.Funcao + ";");
-                    tw.Write(despesa.Valor + "\n");
+                    tw.Write(gastoLinha.TipoGasto + ";");
+                    tw.Write(gastoLinha.Processo + ";");
+                    tw.Write(gastoLinha.Favorecido + ";");
+                    tw.Write(gastoLinha.CNPJ + ";");
+                    tw.Write(gastoLinha.Poder + ";");
+                    tw.Write(gastoLinha.Categoria + ";");
+                    tw.Write(gastoLinha.Rubrica + ";");
+                    tw.Write(gastoLinha.Funcao + ";");
+                    tw.Write(gastoLinha.Valor + "\n");
                 }
-
-                var totalGastos = despesas.Sum(item => item.Valor);
-
-                tw.Write("Total de Gastos:" + totalGastos + "\n");
             }
 
             SharedHelpers.Summary();

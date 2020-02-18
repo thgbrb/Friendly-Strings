@@ -8,7 +8,6 @@ namespace Shared
         public static void Summary()
         {
             Console.WriteLine($"Processor Time: {Process.GetCurrentProcess().TotalProcessorTime}");
-            Console.WriteLine($"Peak Virtual Memory KB: {Process.GetCurrentProcess().PeakVirtualMemorySize64 / 1024:N0}");
             Console.WriteLine($"Peak Private Bytes KB: {Process.GetCurrentProcess().PeakWorkingSet64 / 1024:N0}");
             Console.WriteLine($"Private Memory KB: {Process.GetCurrentProcess().PrivateMemorySize64 / 1024:N0}");
 
@@ -19,7 +18,7 @@ namespace Shared
         }
     }
 
-    public class GastoLinha
+    public struct GastoLinha
     {
         public string TipoGasto { get; set; } // 3
         public long Processo { get; set; } // 8

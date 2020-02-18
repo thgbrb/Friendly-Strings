@@ -1,13 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net461;net48;netcoreapp3.1</TargetFrameworks>
+    <AssemblyName>FunWithStrings</AssemblyName>
+    <RootNamespace>FunWithStrings</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Buffers" Version="4.5.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
