@@ -30,12 +30,12 @@ namespace Shared
         public string Funcao { get; set; } // 32
         public double Valor { get; set; } // 44
 
-        public GastoLinha(string tipoGasto, long processo, string favorecido, string cNPJ, string poder, string categoria, string rubrica, string funcao, double valor)
+        public GastoLinha(string tipoGasto, long processo, string favorecido, string cnpj, string poder, string categoria, string rubrica, string funcao, double valor)
         {
             TipoGasto = tipoGasto;
             Processo = processo;
             Favorecido = favorecido;
-            CNPJ = cNPJ;
+            CNPJ = cnpj;
             Poder = poder;
             Categoria = categoria;
             Rubrica = rubrica;

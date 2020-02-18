@@ -115,7 +115,7 @@ namespace Playing
                 tipoGasto: tipoGasto,
                 processo: processo,
                 favorecido: favorecido,
-                cNPJ: cnpj,
+                cnpj: cnpj,
                 poder: poder,
                 categoria: categoria,
                 rubrica: rubrica,

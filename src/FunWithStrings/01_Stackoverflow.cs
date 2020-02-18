@@ -28,7 +28,7 @@ namespace Playing
                         tipoGasto: valor[3],
                         processo: long.Parse(valor[8]),
                         favorecido: valor[10],
-                        cNPJ: valor[11]
+                        cnpj: valor[11]
                             .Replace(".", "")
                             .Replace("/", "")
                             .Replace("-", ""),
