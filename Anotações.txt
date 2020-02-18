@@ -1,0 +1,23 @@
+-- CSVHelper
+
+-- Veiculos no RS (>6.5MI)
+#Objetivo
+-- Filtrar um ano de fabricação
+-- Gerar um arquivo baseado no filtro com as colunas
+----  marca [0]
+----  fabricacao[1]
+----  especie[3]
+----  tipo[4]
+----  cor[6]
+----  combustivel[7]
+----  potencia[9]
+----  munic_emplamento[11]
+
+// c# read csv :: https://stackoverflow.com/questions/5282999/reading-csv-file-and-storing-values-into-an-array
+// Question like: 302
+// Anwsered like: 393
+// c# save list to file :: https://stackoverflow.com/questions/15300572/saving-lists-to-txt-file
+// Question like: 38
+// Anwsered like: 61
+
+
