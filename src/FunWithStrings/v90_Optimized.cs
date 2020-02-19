@@ -3,7 +3,6 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using static Shared.Parsers;
 
 namespace Playing
@@ -108,8 +107,6 @@ namespace Playing
         {
             var separatorPosition = ParseLineWithIntArray(gastoLinha);
 
-            _stringBuilder.Clear();
-
             for (int i = separatorPosition[2] + 1; i < separatorPosition[3]; i++)
                 _stringBuilder.Append(gastoLinha[i]);
             _gastoLinha.TipoGasto = _stringBuilder.ToString();
@@ -155,7 +152,6 @@ namespace Playing
                 _stringBuilder.Append(gastoLinha[i]);
             _gastoLinha.Valor = double.Parse(_stringBuilder.ToString());
             _stringBuilder.Clear();
-
             return _gastoLinha;
         }
     }
