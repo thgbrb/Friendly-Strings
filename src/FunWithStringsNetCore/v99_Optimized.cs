@@ -10,7 +10,6 @@ namespace Playing
 {
     public class v99_Optimized
     {
-        private readonly StringBuilder _stringBuilder = new StringBuilder();
         private readonly ArrayPool<char> _charArrayPool = ArrayPool<char>.Shared;
 
         public void Run()
@@ -86,47 +85,69 @@ namespace Playing
             gastoLinhaSpan.TipoGasto = lineSpan
                 .Slice(
                     start: separatorPosition[2] + 1,
-                    length: separatorPosition[3] - separatorPosition[2] + 1);
+                    length: separatorPosition[3] - separatorPosition[2]);
 
             gastoLinhaSpan.Processo = lineSpan
                 .Slice(
                     start: separatorPosition[7] + 1,
-                    length: separatorPosition[8] - separatorPosition[7] + 1);
+                    length: separatorPosition[8] - separatorPosition[7]);
 
             gastoLinhaSpan.Favorecido = lineSpan
                 .Slice(
                     start: separatorPosition[9] + 1,
-                    length: separatorPosition[10] - separatorPosition[9] + 1);
+                    length: separatorPosition[10] - separatorPosition[9]);
 
-            gastoLinhaSpan.CNPJ = lineSpan
+
+            var cnpj = lineSpan
                 .Slice(
                     start: separatorPosition[10] + 1,
-                    length: separatorPosition[11] - separatorPosition[10] + 1);
+                    length: separatorPosition[11] - separatorPosition[10]);
+
+            var buffer = _charArrayPool.Rent(minimumLength: Configuration.CNPJ_SIZE + 1);
+
+            try
+            {
+                var c = 0;
+
+                for (int i = 0; i < cnpj.Length - 1; i++)
+                    if (char.IsDigit(cnpj[i]))
+                    {
+                        buffer[c] = cnpj[i];
+                        c++;
+                    }
+
+                gastoLinhaSpan.CNPJ = buffer.AsSpan(start:0, length: Configuration.CNPJ_SIZE + 1);
+                gastoLinhaSpan.CNPJ[Configuration.CNPJ_SIZE] = ';';
+            }
+            finally
+            {
+                _charArrayPool.Return(buffer);
+            }
 
             gastoLinhaSpan.Poder = lineSpan
                 .Slice(
                     start: separatorPosition[11] + 1,
-                    length: separatorPosition[12] - separatorPosition[11] + 1);
+                    length: separatorPosition[12] - separatorPosition[11]);
 
             gastoLinhaSpan.Categoria = lineSpan
                 .Slice(
                     start: separatorPosition[19] + 1,
-                    length: separatorPosition[20] - separatorPosition[19] + 1);
+                    length: separatorPosition[20] - separatorPosition[19]);
 
             gastoLinhaSpan.Rubrica = lineSpan
                 .Slice(
                     start: separatorPosition[27] + 1,
-                    length: separatorPosition[28] - separatorPosition[27] + 1);
+                    length: separatorPosition[28] - separatorPosition[27]);
 
             gastoLinhaSpan.Funcao = lineSpan
                 .Slice(
                     start: separatorPosition[31] + 1,
-                    length: separatorPosition[32] - separatorPosition[31] + 1);
+                    length: separatorPosition[32] - separatorPosition[31]);
 
             gastoLinhaSpan.Funcao = lineSpan
                 .Slice(
                     start: separatorPosition[43] + 1,
-                    length: separatorPosition[44] - separatorPosition[43] + 1);
+                    length: separatorPosition[44] - separatorPosition[43]);
 
             return gastoLinhaSpan;
         }
@@ -159,8 +180,8 @@ namespace Playing
 
         public char[] GenerateLine()
         {
-            var bufferSize = TipoGasto.Length + Processo.Length + Favorecido.Length + CNPJ.Length + Poder.Length + Categoria.Length + Rubrica.Length + Funcao.Length + Valor.Length + 10;
-            
+            var bufferSize = TipoGasto.Length + Processo.Length + Favorecido.Length + CNPJ.Length + Poder.Length + Categoria.Length + Rubrica.Length + Funcao.Length + Valor.Length + 1;
+
             //preencher array
             var result = new char[bufferSize];
 
@@ -172,17 +193,11 @@ namespace Playing
                     lastPosition++;
                 }
 
-                result[lastPosition] = ';';
-                lastPosition++;
-
                 for (int j = 0; j < Processo.Length; j++)
                 {
                     result[lastPosition] = Processo[j];
                     lastPosition++;
                 }
-
-                result[lastPosition] = ';';
-                lastPosition++;
 
                 for (int j = 0; j < Favorecido.Length; j++)
                 {
@@ -190,17 +205,11 @@ namespace Playing
                     lastPosition++;
                 }
 
-                result[lastPosition] = ';';
-                lastPosition++;
-
                 for (int j = 0; j < CNPJ.Length; j++)
                 {
                     result[lastPosition] = CNPJ[j];
                     lastPosition++;
                 }
-
-                result[lastPosition] = ';';
-                lastPosition++;
 
                 for (int j = 0; j < Poder.Length; j++)
                 {
@@ -208,8 +217,6 @@ namespace Playing
                     lastPosition++;
                 }
 
-                result[lastPosition] = ';';
-                lastPosition++;
 
                 for (int j = 0; j < Categoria.Length; j++)
                 {
@@ -217,19 +224,11 @@ namespace Playing
                     lastPosition++;
                 }
 
-                result[lastPosition] = ';';
-                lastPosition++;
-
-
                 for (int j = 0; j < Rubrica.Length; j++)
                 {
                     result[lastPosition] = Rubrica[j];
                     lastPosition++;
                 }
-
-                result[lastPosition] = ';';
-                lastPosition++;
-
 
                 for (int j = 0; j < Funcao.Length; j++)
                 {
@@ -237,17 +236,12 @@ namespace Playing
                     lastPosition++;
                 }
 
-                result[lastPosition] = ';';
-                lastPosition++;
-
                 for (int j = 0; j < Valor.Length; j++)
                 {
                     result[lastPosition] = Valor[j];
                     lastPosition++;
                 }
 
-                result[lastPosition] = ';';
-                lastPosition++;
             }
 
             result[result.Length - 1] = '\n';

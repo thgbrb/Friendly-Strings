@@ -6,5 +6,6 @@
         public const string DATABASE_FILE = "D:\\working\\dados\\database.csv";
         public const int NUMBER_OF_COLUMS = 63; // Numbers of colums into csv file
         public const char SEPARATOR = ';';
+        public const byte CNPJ_SIZE = 11;
     }
 }
