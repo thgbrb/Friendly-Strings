@@ -116,8 +116,11 @@ namespace Playing
                         c++;
                     }
 
-                gastoLinhaSpan.CNPJ = buffer.AsSpan(start:0, length: Configuration.CNPJ_SIZE + 1);
-                gastoLinhaSpan.CNPJ[Configuration.CNPJ_SIZE] = ';';
+                gastoLinhaSpan.CNPJ = buffer.AsSpan(
+                    start:0,
+                    length: Configuration.CNPJ_SIZE + 1);
+
+                gastoLinhaSpan.CNPJ[Configuration.CNPJ_SIZE] = Configuration.SEPARATOR;
             }
             finally
             {
