@@ -42,7 +42,7 @@ namespace Playing
                 }
             }
 
-            using (TextWriter tw = new StreamWriter(path: Configuration.DATABASE_FILE, append: true))
+            using (TextWriter tw = new StreamWriter(path: Configuration.DATABASE_FILE, append: false))
             {
                 foreach (var gastoLinha in gastoLinhas)
                 {

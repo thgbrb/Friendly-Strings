@@ -13,7 +13,7 @@ namespace Playing
 
         public void Run()
         {
-            using (TextWriter tw = new StreamWriter(path: Configuration.DATABASE_FILE, append: true))
+            using (TextWriter tw = new StreamWriter(path: Configuration.DATABASE_FILE, append: false))
             {
                 foreach (var despesa in LoadLines())
                 {

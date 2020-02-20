@@ -66,7 +66,7 @@ namespace Playing
 
                         var gastoLinha = Parse(buffer);
 
-                        yield return gastoLinha.GenerateLine();
+                        yield return gastoLinha.GenerateLine(charArrayPool: _charArrayPool);
                     }
                     finally
                     {
@@ -117,7 +117,7 @@ namespace Playing
                     }
 
                 gastoLinhaSpan.CNPJ = buffer.AsSpan(
-                    start:0,
+                    start: 0,
                     length: Configuration.CNPJ_SIZE + 1);
 
                 gastoLinhaSpan.CNPJ[Configuration.CNPJ_SIZE] = Configuration.SEPARATOR;
@@ -181,75 +181,83 @@ namespace Playing
             Valor = valor;
         }
 
-        public char[] GenerateLine()
+        public char[] GenerateLine(ArrayPool<char> charArrayPool)
         {
             var bufferSize = TipoGasto.Length + Processo.Length + Favorecido.Length + CNPJ.Length + Poder.Length + Categoria.Length + Rubrica.Length + Funcao.Length + Valor.Length + 1;
 
             //preencher array
-            var result = new char[bufferSize];
+            var result = charArrayPool.Rent(bufferSize);
 
-            for (int lastPosition = 0; lastPosition < bufferSize - 1;)
+            try
             {
-                for (int j = 0; j < TipoGasto.Length; j++)
+                for (int lastPosition = 0; lastPosition < bufferSize - 1;)
                 {
-                    result[lastPosition] = TipoGasto[j];
-                    lastPosition++;
+                    for (int j = 0; j < TipoGasto.Length; j++)
+                    {
+                        result[lastPosition] = TipoGasto[j];
+                        lastPosition++;
+                    }
+
+                    for (int j = 0; j < Processo.Length; j++)
+                    {
+                        result[lastPosition] = Processo[j];
+                        lastPosition++;
+                    }
+
+                    for (int j = 0; j < Favorecido.Length; j++)
+                    {
+                        result[lastPosition] = Favorecido[j];
+                        lastPosition++;
+                    }
+
+                    for (int j = 0; j < CNPJ.Length; j++)
+                    {
+                        result[lastPosition] = CNPJ[j];
+                        lastPosition++;
+                    }
+
+                    for (int j = 0; j < Poder.Length; j++)
+                    {
+                        result[lastPosition] = Poder[j];
+                        lastPosition++;
+                    }
+
+
+                    for (int j = 0; j < Categoria.Length; j++)
+                    {
+                        result[lastPosition] = Categoria[j];
+                        lastPosition++;
+                    }
+
+                    for (int j = 0; j < Rubrica.Length; j++)
+                    {
+                        result[lastPosition] = Rubrica[j];
+                        lastPosition++;
+                    }
+
+                    for (int j = 0; j < Funcao.Length; j++)
+                    {
+                        result[lastPosition] = Funcao[j];
+                        lastPosition++;
+                    }
+
+                    for (int j = 0; j < Valor.Length; j++)
+                    {
+                        result[lastPosition] = Valor[j];
+                        lastPosition++;
+                    }
+
                 }
 
-                for (int j = 0; j < Processo.Length; j++)
-                {
-                    result[lastPosition] = Processo[j];
-                    lastPosition++;
-                }
+                result[result.Length - 1] = '\n';
 
-                for (int j = 0; j < Favorecido.Length; j++)
-                {
-                    result[lastPosition] = Favorecido[j];
-                    lastPosition++;
-                }
-
-                for (int j = 0; j < CNPJ.Length; j++)
-                {
-                    result[lastPosition] = CNPJ[j];
-                    lastPosition++;
-                }
-
-                for (int j = 0; j < Poder.Length; j++)
-                {
-                    result[lastPosition] = Poder[j];
-                    lastPosition++;
-                }
-
-
-                for (int j = 0; j < Categoria.Length; j++)
-                {
-                    result[lastPosition] = Categoria[j];
-                    lastPosition++;
-                }
-
-                for (int j = 0; j < Rubrica.Length; j++)
-                {
-                    result[lastPosition] = Rubrica[j];
-                    lastPosition++;
-                }
-
-                for (int j = 0; j < Funcao.Length; j++)
-                {
-                    result[lastPosition] = Funcao[j];
-                    lastPosition++;
-                }
-
-                for (int j = 0; j < Valor.Length; j++)
-                {
-                    result[lastPosition] = Valor[j];
-                    lastPosition++;
-                }
-
+                return result;
+            }
+            finally
+            {
+                charArrayPool.Return(result);
             }
 
-            result[result.Length - 1] = '\n';
-
-            return result;
         }
     }
 }

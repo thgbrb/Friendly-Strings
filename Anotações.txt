@@ -12,6 +12,8 @@
 ----  combustivel[7]
 ----  potencia[9]
 ----  munic_emplamento[11]
+--- utilizar uma unica thread
+--- foco em memoria e GC (nao velocidade)
 
 -- Adicioniar async na versão mais otimizada durante apresentação.
 
